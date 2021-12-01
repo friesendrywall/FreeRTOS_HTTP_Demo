@@ -1,0 +1,8 @@
+*.o
+*.d
+web/.idea
+firmware/Nucleo-app*THUMB*Debug/*
+firmware/Nucleo-app*THUMB*Release/*
+firmware/romfs*THUMB*Debug/*
+firmware/romfs*THUMB*Release/*
+firmware/Nucleo-app*ARM*

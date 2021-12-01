@@ -1,0 +1,29 @@
+web subtree management notes
+
+git remote add web https://github.com/friesendrywall/emGen2Web.git
+
+git subtree add --prefix=web/ web master
+
+From the master root of the containing project:
+
+Pull changes
+git subtree pull --prefix=web/ web master
+
+Push changes
+git subtree push --prefix=web/ web master
+
+Commit
+git add files
+git commit -m "etc"
+
+Please refrain from committing anything else alongside though
+because it muddies up the commit history.
+
+Example:
+git add Authentication.php
+git commit -m "Something I repaired on the lib-auth repo"
+git subtree push --prefix=web/ web master
+
+Not!
+git add .
+git commit -m "Something I repaired on the parent repo"

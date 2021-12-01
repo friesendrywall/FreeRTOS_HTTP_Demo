@@ -1,0 +1,368 @@
+<!DOCTYPE CrossStudio_Project_File>
+<solution Name="Nucleo-tcp" target="8" version="2">
+  <project Name="Nucleo-app">
+    <configuration
+      CMSIS_CORE="Yes"
+      Name="Common"
+      Placement="Flash"
+      Target="STM32F767ZI"
+      arm_architecture="v7EM"
+      arm_core_type="Cortex-M7"
+      arm_fp_abi="Hard"
+      arm_fpu_type="FPv5-D16"
+      arm_linker_additional_output_file_gap_fill=""
+      arm_linker_heap_size="1024"
+      arm_linker_jtag_pad_pre_dr="1"
+      arm_linker_jtag_pad_pre_ir="5"
+      arm_linker_process_stack_size="8192"
+      arm_linker_stack_size="8192"
+      arm_simulator_memory_simulation_filename="$(TargetsDir)/STM32/STM32SimulatorMemory$(HostDLL)"
+      arm_simulator_memory_simulation_parameter="STM32F767ZI;0x200000;0x80000"
+      arm_target_loader_applicable_loaders="Flash"
+      arm_target_loader_default_loader="Flash"
+      arm_target_trace_interface_type="None"
+      c_system_include_directories="$(StudioIncDir:$(StudioDir)/include);$(PackagesDir)/include;$(ProjectDir)/inc;$(ProjectDir)/src/FreeRTOS/include;$(ProjectDir)/littlefs"
+      c_user_include_directories="$(TargetsDir)/STM32/include"
+      debug_register_definition_file="$(TargetsDir)/STM32/STM32F767_Peripherals.xml"
+      debug_threads_script="$(ProjectDir)/threads.js"
+      linker_additional_options="--undefined=uxTopUsedPriority;--wrap=malloc;--wrap=free;--wrap=calloc;--wrap=realloc;--wrap=strdup"
+      linker_memory_map_file="$(TargetsDir)/STM32/STM32F767ZI_MemoryMap.xml"
+      linker_memory_map_macros=""
+      linker_output_format="srec"
+      linker_section_placement_file="$(ProjectDir)/flash_placement.xml"
+      macros="DeviceVectorsFile=STM32F767xx.vec"
+      pre_build_command="&quot;$(StudioDir)/bin/crossscript&quot; -define BUILDVERSION=$(BUILDVERSION) -load &quot;$(ProjectDir)/buildversion.js&quot;"
+      pre_build_command_control="Always Run"
+      project_directory=""
+      project_type="Executable"
+      property_groups_file_path="$(TargetsDir)/STM32/propertyGroups.xml"
+      target_get_partname_script="GetPartName()"
+      target_loader_no_load_sections=""
+      target_match_partname_script="MatchPartName(&quot;$(Target)&quot;)"
+      target_script_file="$(TargetsDir)/STM32/STM32_Target.js"
+      target_trace_initialize_script="EnableTrace(&quot;$(TraceInterfaceType)&quot;)" />
+    <configuration
+      Name="Flash"
+      arm_target_flash_loader_file_path="$(LOADER:$(TargetsDir)/STM32/Release/STM32F2xx_Loader_rpc.elf)"
+      arm_target_loader_can_erase_all="Yes"
+      arm_target_loader_can_lock_all="No"
+      arm_target_loader_can_lock_range="No"
+      arm_target_loader_can_unlock_all="No"
+      arm_target_loader_can_unlock_range="No"
+      target_reset_script="FLASHReset()" />
+    <configuration Name="RAM" target_reset_script="Reset()" />
+    <folder Name="Source Files">
+      <configuration Name="Common" filter="c;cpp;cxx;cc;h;s;asm;inc" />
+      <file file_name="main.c" />
+      <folder Name="src">
+        <file file_name="src/init.c" />
+        <file file_name="src/system_stm32f7xx.c" />
+        <file file_name="src/stm32f7xx_hal_msp.c" />
+        <file file_name="src/stm32f7xx_hal_timebase_tim.c" />
+        <file file_name="src/stm32f7xx_it.c" />
+        <folder Name="umm_malloc">
+          <file file_name="src/umm_malloc/umm_malloc.c" />
+        </folder>
+        <file file_name="src/xmem.c" />
+        <file file_name="src/debugUart.c" />
+        <folder Name="http">
+          <file file_name="src/http/httpROMFS.c">
+            <configuration Name="Common" project_inhibit_indexing="Yes" />
+          </file>
+          <file file_name="src/http/httpScripts.c" />
+          <file file_name="src/http/httpserver.c" />
+          <file file_name="src/http/FreeRTOS_HTTP_commands.c" />
+          <file file_name="src/http/FreeRTOS_HTTP_server.c" />
+          <file file_name="src/http/yaRomfsCore.c" />
+          <file file_name="src/http/FreeRTOS_TCP_server.c" />
+          <file file_name="romfs THUMB Debug/httpROMFSdata.o">
+            <configuration
+              Name="THUMB Release"
+              build_exclude_from_build="Yes" />
+            <configuration Name="THUMB Debug" build_exclude_from_build="No" />
+          </file>
+          <file file_name="romfs THUMB Release/httpROMFSdata.o">
+            <configuration
+              Name="THUMB Debug"
+              build_exclude_from_build="Yes" />
+          </file>
+          <file file_name="src/parson.c" />
+        </folder>
+        <file file_name="src/rand.c" />
+        <file file_name="src/logs.c" />
+        <file file_name="src/cli.c" />
+        <file file_name="src/cmd.c" />
+        <file file_name="src/FreeRTOS_CLI.c" />
+        <file file_name="src/rtcc.c" />
+        <file file_name="src/bbuRam.c" />
+        <file file_name="src/sntp.c" />
+        <file file_name="src/readROM.c" />
+      </folder>
+      <folder Name="inc">
+        <file file_name="inc/init.h" />
+        <file file_name="inc/stm32f7xx_hal_conf.h" />
+        <file file_name="inc/stm32f7xx_it.h" />
+        <file file_name="inc/mzdiscovery.h" />
+        <file file_name="inc/eui_mac.h" />
+        <folder Name="umm_malloc">
+          <file file_name="inc/umm_malloc/umm_malloc.h" />
+          <file file_name="inc/umm_malloc/umm_malloc_cfg.h" />
+        </folder>
+        <file file_name="inc/xmem.h" />
+        <file file_name="inc/debugUart.h" />
+        <folder Name="http">
+          <file file_name="inc/http/httpROMFS.h" />
+          <file file_name="inc/http/httpserver.h" />
+          <file file_name="inc/http/FreeRTOS_HTTP_commands.h" />
+          <file file_name="inc/http/FreeRTOS_server_private.h" />
+          <file file_name="inc/http/FreeRTOS_TCP_server.h" />
+        </folder>
+        <file file_name="inc/rand.h" />
+        <file file_name="inc/logs.h" />
+        <file file_name="inc/global.h" />
+        <file file_name="inc/cli.h" />
+        <file file_name="inc/cmd.h" />
+        <file file_name="inc/FreeRTOS_CLI.h" />
+        <file file_name="inc/rtcc.h" />
+        <file file_name="inc/configuration.h" />
+        <file file_name="inc/buildnum.h" />
+        <file file_name="inc/update.h" />
+        <file file_name="inc/bbuRam.h" />
+        <folder Name="libs">
+          <file file_name="inc/parson.h" />
+        </folder>
+        <file file_name="inc/control.h" />
+        <file file_name="inc/sntp.h" />
+        <file file_name="inc/buildversion.h" />
+      </folder>
+      <folder Name="FreeRTOS_Source">
+        <file file_name="FreeRTOS_Source/croutine.c" />
+        <file file_name="FreeRTOS_Source/event_groups.c" />
+        <file file_name="FreeRTOS_Source/list.c" />
+        <file file_name="FreeRTOS_Source/queue.c" />
+        <file file_name="FreeRTOS_Source/stream_buffer.c" />
+        <file file_name="FreeRTOS_Source/tasks.c" />
+        <file file_name="FreeRTOS_Source/timers.c" />
+        <folder Name="portable">
+          <folder Name="GCC">
+            <folder Name="ARM_CM7">
+              <folder Name="r0p1">
+                <file file_name="FreeRTOS_Source/portable/GCC/ARM_CM7/r0p1/port.c" />
+                <file file_name="FreeRTOS_Source/portable/GCC/ARM_CM7/r0p1/portmacro.h" />
+              </folder>
+            </folder>
+          </folder>
+          <folder Name="MemMang">
+            <file file_name="FreeRTOS_Source/portable/MemMang/heap_6.c" />
+          </folder>
+        </folder>
+      </folder>
+      <folder Name="STM32_HAL">
+        <folder Name="Src">
+          <file file_name="STM32F7xx_HAL_Driver/Src/stm32f7xx_ll_gpio.c" />
+          <file file_name="STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_gpio.c">
+            <configuration
+              Name="THUMB Debug"
+              build_exclude_from_build="Yes" />
+            <configuration
+              Name="THUMB Release"
+              build_exclude_from_build="Yes" />
+          </file>
+          <file file_name="STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_sdram.c" />
+          <file file_name="STM32F7xx_HAL_Driver/Src/stm32f7xx_ll_fmc.c" />
+          <file file_name="STM32F7xx_HAL_Driver/Src/stm32f7xx_ll_exti.c" />
+          <file file_name="STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_eth.c">
+            <configuration
+              Name="THUMB Debug"
+              build_exclude_from_build="Yes" />
+            <configuration
+              Name="THUMB Release"
+              build_exclude_from_build="Yes" />
+          </file>
+          <file file_name="STM32F7xx_HAL_Driver/Src/stm32f7xx_hal.c" />
+          <file file_name="STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_rcc.c">
+            <configuration Name="THUMB Debug" build_exclude_from_build="No" />
+          </file>
+          <file file_name="STM32F7xx_HAL_Driver/Src/stm32f7xx_ll_utils.c" />
+          <file file_name="STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_cortex.c" />
+          <file file_name="STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_tim.c" />
+          <file file_name="STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_tim_ex.c" />
+          <file file_name="STM32F7xx_HAL_Driver/Src/stm32f7xx_ll_i2c.c" />
+          <file file_name="STM32F7xx_HAL_Driver/Src/stm32f7xx_ll_spi.c" />
+          <file file_name="STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_qspi.c" />
+          <file file_name="STM32F7xx_HAL_Driver/Src/stm32f7xx_ll_usart.c" />
+          <file file_name="STM32F7xx_HAL_Driver/Src/stm32f7xx_ll_rcc.c" />
+          <file file_name="STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma2d.c" />
+          <file file_name="STM32F7xx_HAL_Driver/Src/stm32f7xx_ll_adc.c" />
+          <file file_name="STM32F7xx_HAL_Driver/Src/stm32f7xx_ll_tim.c" />
+          <file file_name="STM32F7xx_HAL_Driver/Src/stm32f7xx_ll_rtc.c" />
+        </folder>
+        <folder Name="Inc">
+          <file file_name="STM32F7xx_HAL_Driver/Inc/stm32f7xx_ll_gpio.h" />
+          <file file_name="STM32F7xx_HAL_Driver/Inc/stm32f7xx_ll_rcc.h" />
+          <file file_name="STM32F7xx_HAL_Driver/Inc/stm32f7xx_ll_dma.h" />
+          <file file_name="STM32F7xx_HAL_Driver/Inc/stm32f7xx_ll_rtc.h" />
+        </folder>
+      </folder>
+      <folder Name="FreeRTOS_TCP">
+        <folder Name="portable">
+          <folder Name="NetworkInterface">
+            <folder Name="Common">
+              <file file_name="FreeRTOS_TCP/portable/NetworkInterface/Common/phyHandling.c" />
+            </folder>
+            <folder Name="STM32Fxx">
+              <file file_name="FreeRTOS_TCP/portable/NetworkInterface/STM32Fxx/NetworkInterface.c" />
+              <file file_name="FreeRTOS_TCP/portable/NetworkInterface/STM32Fxx/stm32fxx_hal_eth.c" />
+              <file file_name="FreeRTOS_TCP/portable/NetworkInterface/STM32Fxx/stm32f7xx_hal_eth.h" />
+              <file file_name="FreeRTOS_TCP/portable/NetworkInterface/STM32Fxx/stm32fxx_hal_eth.h" />
+              <file file_name="FreeRTOS_TCP/portable/NetworkInterface/STM32Fxx/readme.txt" />
+            </folder>
+          </folder>
+          <folder Name="BufferManagement">
+            <file file_name="FreeRTOS_TCP/portable/BufferManagement/BufferAllocation_2.c">
+              <configuration
+                Name="THUMB Debug"
+                build_exclude_from_build="Yes" />
+              <configuration
+                Name="THUMB Release"
+                build_exclude_from_build="Yes" />
+            </file>
+            <file file_name="FreeRTOS_TCP/portable/BufferManagement/BufferAllocation_1.c" />
+          </folder>
+        </folder>
+        <file file_name="FreeRTOS_TCP/FreeRTOS_ARP.c" />
+        <file file_name="FreeRTOS_TCP/FreeRTOS_DHCP.c" />
+        <file file_name="FreeRTOS_TCP/FreeRTOS_DNS.c" />
+        <file file_name="FreeRTOS_TCP/FreeRTOS_IP.c" />
+        <file file_name="FreeRTOS_TCP/FreeRTOS_Sockets.c" />
+        <file file_name="FreeRTOS_TCP/FreeRTOS_Stream_Buffer.c" />
+        <file file_name="FreeRTOS_TCP/FreeRTOS_TCP_IP.c" />
+        <file file_name="FreeRTOS_TCP/FreeRTOS_TCP_WIN.c" />
+        <file file_name="FreeRTOS_TCP/FreeRTOS_UDP_IP.c" />
+        <folder Name="include">
+          <file file_name="FreeRTOS_TCP/include/FreeRTOSIPConfigDefaults.h" />
+        </folder>
+      </folder>
+      <folder Name="configs">
+        <file file_name="inc/FreeRTOSConfig.h" />
+        <file file_name="inc/FreeRTOSIPConfig.h" />
+        <file file_name="inc/flashaddress.h" />
+        <file file_name="inc/priorities.h" />
+        <file file_name="inc/yaROMFSconfig.h" />
+        <folder Name="FreeRTOS_Trace">
+          <file file_name="FreeRTOS_Trace/config/trcConfig.h" />
+          <file file_name="FreeRTOS_Trace/config/trcSnapshotConfig.h" />
+          <file file_name="FreeRTOS_Trace/config/trcStreamingConfig.h" />
+        </folder>
+      </folder>
+      <folder Name="FreeRTOS_Trace">
+        <file file_name="FreeRTOS_Trace/trcKernelPort.c">
+          <configuration
+            Name="THUMB Release"
+            build_exclude_from_build="Yes" />
+        </file>
+        <file file_name="FreeRTOS_Trace/trcSnapshotRecorder.c">
+          <configuration
+            Name="THUMB Release"
+            build_exclude_from_build="Yes" />
+        </file>
+        <file file_name="FreeRTOS_Trace/trcStreamingRecorder.c">
+          <configuration
+            Name="THUMB Release"
+            build_exclude_from_build="Yes" />
+        </file>
+      </folder>
+    </folder>
+    <folder Name="System Files">
+      <file file_name="$(StudioDir)/source/thumb_crt0.s" />
+      <file file_name="$(TargetsDir)/STM32/STM32_Startup.s">
+        <configuration Name="Common" c_preprocessor_definitions="" />
+        <configuration
+          Name="Release"
+          c_preprocessor_definitions="STARTUP_FROM_RESET" />
+      </file>
+      <file file_name="$(TargetsDir)/STM32/$(DeviceVectorsFile)" />
+    </folder>
+    <configuration
+      Name="Release"
+      gcc_optimization_level="Level 0"
+      post_build_command=""
+      post_build_command_control="Always Run"
+      pre_build_command_control="Always Run" />
+    <folder Name="web">
+      <file file_name="web-source.txt" />
+    </folder>
+    <folder Name="libraries" />
+    <file file_name="version.txt" />
+    <file file_name="region.txt" />
+    <file file_name="buildversion.js" />
+    <file file_name="flash_placement.xml" />
+  </project>
+  <configuration Name="THUMB Debug" inherited_configurations="THUMB;Debug" />
+  <configuration
+    Name="THUMB"
+    Platform="ARM"
+    arm_instruction_set="Thumb"
+    arm_library_instruction_set="Thumb"
+    c_preprocessor_definitions="__THUMB"
+    hidden="Yes" />
+  <configuration
+    Name="Debug"
+    c_preprocessor_definitions="DEBUG"
+    gcc_debugging_level="Level 3"
+    gcc_omit_frame_pointer="Yes"
+    gcc_optimization_level="None"
+    hidden="Yes" />
+  <configuration
+    Name="THUMB Release"
+    inherited_configurations="THUMB;Release" />
+  <configuration
+    Name="Release"
+    c_preprocessor_definitions="NDEBUG;STARTUP_FROM_RESET"
+    gcc_debugging_level="Level 3"
+    gcc_omit_frame_pointer="Yes"
+    gcc_optimization_level="Level 0"
+    hidden="Yes"
+    linker_printf_fmt_level="int"
+    linker_printf_fp_enabled="Double" />
+  <configuration
+    Name="Common"
+    arm_linker_irq_stack_size="2048"
+    c_preprocessor_definitions="USE_FULL_LL_DRIVER;STM32F7xx"
+    c_user_include_directories=".;./FreeRTOS_Source/include;./FreeRTOS_Source/portable/GCC/ARM_CM7/r0p1/;./STM32F7xx_HAL_Driver/Inc;./FreeRTOS_TCP/include;./FreeRTOS_TCP/portable/NetworkInterface/STM32Fxx;./FreeRTOS_TCP/portable/Compiler/GCC;./FreeRTOS_TCP/portable/NetworkInterface/include;./FreeRTOS_Trace/Include;./FreeRTOS_Trace/config" />
+  <configuration Name="ARM Debug" inherited_configurations="ARM;Debug" />
+  <configuration
+    Name="ARM"
+    Platform="ARM"
+    arm_instruction_set="ARM"
+    arm_library_instruction_set="ARM"
+    c_preprocessor_definitions="__ARM"
+    hidden="Yes" />
+  <configuration
+    Name="ARM Flash Release"
+    inherited_configurations="ARM;Flash;Release" />
+  <configuration
+    Name="Flash"
+    c_preprocessor_definitions="__FLASH_BUILD"
+    hidden="Yes" />
+  <project Name="romfs">
+    <configuration
+      Name="Common"
+      arm_architecture="v7EM"
+      arm_core_type="Cortex-M7"
+      arm_fp_abi="Hard"
+      build_always_rebuild="Yes"
+      c_user_include_directories=".;inc/"
+      compile_pre_build_command="cmd /c web-prebuild"
+      pre_build_command=""
+      project_directory=""
+      project_type="Object file" />
+    <configuration
+      Name="Release"
+      arm_architecture="v7EM"
+      arm_core_type="Cortex-M7"
+      arm_fp_abi="Hard"
+      gcc_optimization_level="Level 1" />
+    <file file_name="src/http/httpROMFSdata.c" />
+  </project>
+</solution>

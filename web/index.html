@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTTP DEMO</title>
+</head>
+<body>
+<div>
+    <h3 style="text-align:center"> Hello world HTTP demo</h3>
+    <a href="api/custom.txt"> Custom generated text</a> </br >
+    <a href="zipped.txt"> Pre-zipped text</a> </br >
+    <a href="api/selected.txt?file=1"> Software selected file 1</a> </br >
+    <a href="api/selected.txt?file=2"> Software selected file 2</a> </br >
+    <a href="test"> Redirect back</a> </br >
+    <input type="checkbox" id="button" onclick="onbutton()">LD1</div>
+    <form action="api/post_file.php" method="post">
+        <input type="file" id="myFile" name="filename">
+        <input type="submit">
+    </form>
+</div>
+<script>
+
+    function onbutton() {
+        const checkBox = document.getElementById("button");
+        const text = document.getElementById("buttontext");
+
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText)
+            }
+        };
+        xhttp.open("GET", "/checkbox.php?value=" + checkBox.checked, true);
+        xhttp.send();
+    }
+
+</script>
+</body>
+</html>

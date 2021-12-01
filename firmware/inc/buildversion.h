@@ -1,0 +1,4 @@
+#ifndef BUILDVERSION_H
+#define BUILDVERSION_H
+#define HTTP_BUILD_VERSION "$(BUILDVERSION)"
+#endif

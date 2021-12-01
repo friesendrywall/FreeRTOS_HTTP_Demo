@@ -1,0 +1,25 @@
+[WEBROOT]
+./../web
+[OUTPUT_SRC]
+./src/http
+[OUTPUT_HDR]
+./inc/http
+[INCLUDE]
+http/httpROMFS.h
+[NAME]
+httpROMFS
+[REDIRECTS]
+test /
+[SCRIPTS]
+checkbox.php GET checkbox_GET json 0
+api/custom.txt GET custom_GET_txt txt 0
+api/selected.txt GET choose_file_GET_txt txt 0
+api/post_file.php POST file_POST_php json 8192
+[FILES]
+*.js
+*.html
+*.css
+*.map
+*.gif
+*.txt
+favicon.ico
